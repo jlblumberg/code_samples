@@ -26,3 +26,25 @@ describe DockingStation do
     expect(subject.dock(@bike)).to be true
   end
 end
+
+# Check for number of arguments
+describe '#number_to_numeral' do
+  it 'accepts a single argument' do
+    expect { subject.number_to_numeral(4) }.not_to raise_error
+  end
+end
+
+# How to use 'subject'. It is a way to refer to a new object of a class
+describe 'A calculator' do
+  describe 'does arithmetic' do
+    describe '#add' do
+    subject { Arithmetic.new } # creates a new instance of the Arithmetic class so that it can be refered to by 'subject'.
+      it 'adds two numbers' do
+        expect(subject.add(2, 3)).to eq 5
+        expect(subject.add(6, 4)).to eq 10
+      end
+    end
+  end
+end
+
+
