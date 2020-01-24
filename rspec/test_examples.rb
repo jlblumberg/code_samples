@@ -47,4 +47,13 @@ describe 'A calculator' do
   end
 end
 
+# check for the output of a method using eq
+describe '#add' do
+    subject { Arithmetic.new } # creates a new instance of the Arithmetic class so that it can be refered to by 'subject'.
+      it 'adds two numbers' do
+        expect(subject.add(2, 3)).to eq 5
+        expect(subject.add(6, 4)).to eq 10
+      end
+    end
+
 
