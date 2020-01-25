@@ -56,4 +56,9 @@ describe '#add' do
       end
     end
 
-
+# check for the value of initialized defaults
+it 'Has a default capacity of 1 which can be overwritten' do
+    plane = Planes.new
+    expect(Airport.new.instance_variable_get(:@capacity)).to eq(1)
+    expect(Airport.new(3).instance_variable_get(:@capacity)).to eq(3)
+  end
