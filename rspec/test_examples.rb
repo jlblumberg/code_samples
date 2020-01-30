@@ -62,3 +62,19 @@ it 'Has a default capacity of 1 which can be overwritten' do
     expect(Airport.new.instance_variable_get(:@capacity)).to eq(1)
     expect(Airport.new(3).instance_variable_get(:@capacity)).to eq(3)
   end
+
+# use let statements with doubles 
+let(:exit_station) { double('aldgate')}
+it 'should deduct the minimum fare from the balance' do
+  expect { oyster.touch_out(exit_station) }.to change{ oyster.balance }.by(-OysterCard::MINIMUM_FARE)
+end
+
+# define a name for subject
+describe OysterCard do
+  subject(:oyster) { described_class.new }
+  it 'returns true if tapped in' do
+    oyster.top_up(OysterCard::CARD_LIMIT)
+    expect(oyster.in_journey?).to eq (true)
+  end
+end
+
