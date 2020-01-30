@@ -33,6 +33,12 @@ describe '#number_to_numeral' do
     expect { subject.number_to_numeral(4) }.not_to raise_error
   end
 end
+# another way to do this
+describe Oystercard do
+  it 'should accept an entry station' do
+      expect(subject).to respond_to(:touch_in).with(1).argument
+  end
+end
 
 # How to use 'subject'. It is a way to refer to a new object of a class
 describe 'A calculator' do
@@ -63,7 +69,7 @@ it 'Has a default capacity of 1 which can be overwritten' do
     expect(Airport.new(3).instance_variable_get(:@capacity)).to eq(3)
   end
 
-# use double in isolation
+# use a double in isolation
 bike = double(:bike)
 # the left hand bike can be anything, and the bike in brackets can be a symbol or a
 # string, but it cannot be a variable, because then the test will look for that variable. They both hold no meaning yet - they are standins.
@@ -73,6 +79,16 @@ allow(bike).to receive(:broken?).and_return(true)
 bike = double(:bike, broken?: true)
 # 'bike = double(:bike' is equivalent to first line above. :bike could also be a string if you wanted. Neither bike nore :bike hold meaning yet - they are standins. 
 # 'broken?: true' is a key value pair in a hash. It is defining a named behavior for the double, called broken?, and setting it to the fixed value true.
+# another example:
+describe NoteFormatter do
+  let(:note) { double('note', title: "My title", body: "my body") }
+  describe '#format' do
+    it "returns a formatted note" do
+      expect(subject.format(note)).to eq("Title: My title\nmy body")
+    end
+  end
+end
+
 # more on named variables here:
 def obvious_total(subtotal:, tax:, discount:)
   subtotal + tax - discount
