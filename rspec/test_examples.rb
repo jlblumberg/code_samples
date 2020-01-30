@@ -63,7 +63,28 @@ it 'Has a default capacity of 1 which can be overwritten' do
     expect(Airport.new(3).instance_variable_get(:@capacity)).to eq(3)
   end
 
+# use double in isolation
+bike = double(:bike)
+# the left hand bike can be anything, and the bike in brackets can be a symbol or a
+# string, but it cannot be a variable, because then the test will look for that variable. They both hold no meaning yet - they are standins.
+allow(bike).to receive(:broken?).and_return(true)
+# now we give the double some behavior by using allow. Here, :broken? is the symbolized version of a method broken?. We are telling it to return true.
+# both of the above lines can be shortened into:
+bike = double(:bike, broken?: true)
+# 'bike = double(:bike' is equivalent to first line above. :bike could also be a string if you wanted. Neither bike nore :bike hold meaning yet - they are standins. 
+# 'broken?: true' is a key value pair in a hash. It is defining a named behavior for the double, called broken?, and setting it to the fixed value true.
+# more on named variables here:
+def obvious_total(subtotal:, tax:, discount:)
+  subtotal + tax - discount
+end
+obvious_total(subtotal: 100, tax: 10, discount: 5) # => 105
+# when used, they have to be given with names.
+# nice thing is that they can be given in any order when used, and not all have to be used. 
+# because they have names, the method can tell what is what. 
+
+
 # use let statements with doubles 
+# the let will be called at the beginning and hold until the end of the describe/context block
 let(:exit_station) { double('aldgate')}
 it 'should deduct the minimum fare from the balance' do
   expect { oyster.touch_out(exit_station) }.to change{ oyster.balance }.by(-OysterCard::MINIMUM_FARE)
@@ -95,3 +116,15 @@ describe "#touch_out" do
       expect { oyster.touch_out(exit_station) }.to change{ oyster.balance }.by(-OysterCard::MINIMUM_FARE)
   end
 end
+
+# use stubs to set the output from a method which could have multiple outputs
+# a classic example is to stub randomness so that you can define the case and have a stable test
+# but can also apply when output isnt random but can have multiple values
+describe '#tell_to_takeoff' do
+    it 'accepts a single plane' do 
+      plane = Planes.new
+      allow(weather.new).to receive(:stormy?).and_return(false)
+      expect { subject.tell_to_takeoff(plane) }.not_to raise_error
+    end
+
+
