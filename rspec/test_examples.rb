@@ -78,3 +78,20 @@ describe OysterCard do
   end
 end
 
+# use before to run a set of steps before each 'it' block
+describe "#touch_out" do
+  before (:each) do
+      oyster.top_up(OysterCard::MINIMUM_FARE)
+      oyster.touch_in(entry_station)
+  end
+  it 'should change in journey to false' do
+    # the two lines listed in the before statement are going to run here
+      oyster.touch_out(exit_station)
+      expect(oyster).not_to be_in_journey
+  end
+
+  it 'should deduct the minimum fare from the balance' do
+    # the two lines listed in the before statement are going to run here
+      expect { oyster.touch_out(exit_station) }.to change{ oyster.balance }.by(-OysterCard::MINIMUM_FARE)
+  end
+end
