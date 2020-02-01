@@ -117,6 +117,14 @@ end
 
 # define specific properties of a subject (named or otherwise left as 'subject')
   subject(:journey) { described_class.new(entry_station = "station")}
+# an example of using the above syntax with dependency injection
+  describe '#pay' do
+  let(:cart) { double("cart", total: 19) }
+  subject(:takeaway) { described_class.new(cart)}
+    it 'kicks up error if money handed in does not equal the cart total' do
+      expect { takeaway.pay(18) }.to raise_error("Incorrect £ given")
+    end
+  end
 
 # use before to run a set of steps before each 'it' block
 describe "#touch_out" do
