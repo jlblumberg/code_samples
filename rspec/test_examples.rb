@@ -115,6 +115,9 @@ describe OysterCard do
   end
 end
 
+# define specific properties of a subject (named or otherwise left as 'subject')
+  subject(:journey) { described_class.new(entry_station = "station")}
+
 # use before to run a set of steps before each 'it' block
 describe "#touch_out" do
   before (:each) do
