@@ -1,5 +1,7 @@
 # RSpec syntax changes when being used with Capybara to do feature tests
 
+# Capybara cheatsheet here https://thoughtbot.com/upcase/test-driven-rails-resources/capybara.pdf
+
 # feature block is like 'describe' and scenario block is like 'it'
 # test for page content
 feature 'Testing infrastructure' do
